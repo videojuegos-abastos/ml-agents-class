@@ -1,0 +1,38 @@
+{
+    "Busca Objetivo": {
+        "checkpoints": [
+            {
+                "steps": 499966,
+                "file_path": "results\\ppo\\Busca Objetivo\\Busca Objetivo-499966.onnx",
+                "reward": 10604.410978771391,
+                "creation_time": 1671645142.8111315,
+                "auxillary_file_paths": [
+                    "results\\ppo\\Busca Objetivo\\Busca Objetivo-499966.pt"
+                ]
+            },
+            {
+                "steps": 500030,
+                "file_path": "results\\ppo\\Busca Objetivo\\Busca Objetivo-500030.onnx",
+                "reward": 10604.410978771391,
+                "creation_time": 1671645142.8490603,
+                "auxillary_file_paths": [
+                    "results\\ppo\\Busca Objetivo\\Busca Objetivo-500030.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500030,
+            "file_path": "results\\ppo\\Busca Objetivo.onnx",
+            "reward": 10604.410978771391,
+            "creation_time": 1671645142.8490603,
+            "auxillary_file_paths": [
+                "results\\ppo\\Busca Objetivo\\Busca Objetivo-500030.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
