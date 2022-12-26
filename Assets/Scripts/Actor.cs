@@ -15,12 +15,14 @@ public class Actor : Agent
 
     void Start()
     {
+		// Forma 'rápida' de obtener MI objetivo (porque ahora tenemos más de un agent y target)
         target = transform.parent.GetChild(2).GetChild(0);
         StartCoroutine(nameof(SlowUpdate));
     }
 
     IEnumerator SlowUpdate()
     {
+		// Prueba de cómo puede afectar recompensar nuestro agente dependiendo de la distancia al objetivo
         while (isActiveAndEnabled)
         {
             float distance = (target.position - transform.position).magnitude;
@@ -31,15 +33,17 @@ public class Actor : Agent
 
     public override void OnEpisodeBegin()
     {
+		// Reseteamos mi posición y la del objetivo
         transform.localPosition = Vector3.zero;
         target.parent.GetComponent<RandomPosition>().SetRandomPositions();
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
+		// Observaciones / Inputs de la red
+		// Suministramos a la red los parámetros que creemos que son relevantes
         Vector2 targetPos = new Vector2(target.localPosition.x, target.localPosition.z);
         Vector2 myPos = new Vector2(transform.localPosition.x, transform.localPosition.z);
-
 
         sensor.AddObservation(targetPos);
         sensor.AddObservation(myPos);
@@ -47,6 +51,7 @@ public class Actor : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+		// Hacemos las acciones (moverse) con el output de la red
         float moveX = actions.ContinuousActions[0];
         float moveZ = actions.ContinuousActions[1];
 
@@ -57,12 +62,15 @@ public class Actor : Agent
 
     void OnTriggerEnter(Collider collider)
     {
+		// Esta es la primera forma que tomamos de recompensa, cuando el agente toca el objetivo, lo recompensamos
         SetReward(+1f);
         EndEpisode();
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
+		// Heurística, sobreescribimos los outputs de la red para comprobar que las acciones que puede hacer el agente funcionan
+		// *Para manejar con heurística tenemos que activarla en los Behaviour Parameters de la red. (Heuristic)
         ActionSegment<float> continousActions = actionsOut.ContinuousActions;
 
         continousActions[0] = Input.GetAxis("Horizontal");
